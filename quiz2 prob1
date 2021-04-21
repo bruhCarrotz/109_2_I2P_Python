@@ -1,0 +1,6 @@
+c = input()
+n_str = input()
+n = int(n_str)
+x = ord(c)
+result = chr(x + n)
+print(result)
