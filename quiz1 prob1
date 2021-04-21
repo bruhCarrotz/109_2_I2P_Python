@@ -1,0 +1,2 @@
+x = input()
+print('{} is my best friend.'.format(x))
