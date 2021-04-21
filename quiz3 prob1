@@ -1,0 +1,6 @@
+x = list(input('Enter a sentence: '))
+a, b, c = input('Enter a prohibited letters: ').split(', ')
+newlist = []
+
+result = [x for x in x if a not in x if b not in x if c not in x]
+print(result)
