@@ -1,0 +1,5 @@
+x = input()
+h = input().split(' ')
+fixSkill = ', '.join(h)
+print('My nickname is "{}".'.format(x))
+print('I\'m good at {}, etc.'.format(fixSkill))
