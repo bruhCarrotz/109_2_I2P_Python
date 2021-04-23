@@ -1,0 +1,7 @@
+money = int(input('How much money do you have? '))
+txt = input('Add an expense or income record with description and amount:\n')
+
+x = txt.split(' ')
+fixAmount = int(x[1])
+result = money + fixAmount
+print('Now you have {} dollars.'.format(result))
