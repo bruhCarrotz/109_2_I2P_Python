@@ -1,0 +1,92 @@
+import sys
+def displayAdd(records):
+    try:
+        x = input('Add an expense or income record with description and amount:\n')
+        desc, exp = x.split(' ')
+        records.append((desc,int(exp)))
+        return(records)
+    except ValueError:
+        if ' ' not in x:
+            print('The format of a record should be like this: breakfast -50.\nFail to add a record.')
+        else:
+            print('Invalid money. Fail to add a record.')
+        return(records)
+        
+def displayView(initialMoney,records):
+    total = 0
+    print('Here\'s your expense and income records:')
+    print('Description        Expense/Income')
+    print('===================================')
+    for i in range(len(records)):
+        desc, exp = records[i]
+        print('{Desc:<23s} {Exp}'.format(Desc=desc,Exp=exp))
+        total = total + exp
+    print('===================================')
+    result = int(initialMoney) + int(total)
+    print('Now you have {} dollars.\n'.format(result))
+    return(initialMoney,records)
+
+def displayDelete(records):
+    try:
+        wantDelete, num = input('Which record do you want to delete?\n').split(' ')
+        del(records[int(num)-1])
+        displayView(initialMoney,records)
+        return(records)
+    except ValueError:
+        print('The format of deletion should be like this: breakfast 1\nFail to delete a record.')
+        return(records)    
+    except IndexError:
+        print('There\'s no record \'{}\' found in {}th order. Fail to delete a record.'.format(wantDelete,num))
+        return(records)
+
+def save(initialMoney,records):
+    with open(file='records.txt', mode='w') as fh:
+        fh.write(str(initialMoney) + '\n')
+        for i in records:
+            line = '{} {}\n'.format(i[0],i[1])
+            fh.writelines(line)
+    return(initialMoney,records)
+
+def initialize():
+    try:
+        records = []
+        with open(file='records.txt',mode='r') as fh:
+            for i in fh.readlines():
+                if ' ' not in i:
+                    initialMoney = int(i.strip())
+                else:
+                    lines = i.strip()
+                    desc, exp = lines.split(' ')
+                    records.append((desc,int(exp)))
+            print('Welcome back!')
+        return(initialMoney, records)
+    except OSError:
+        initialMoney = input('How much money do you have? ')
+        if initialMoney.isnumeric():
+            int(initialMoney)
+        else:
+            print('Invalid value for money. Set to 0 by default.')
+            pass
+        return(initialMoney,[])
+    except ValueError:
+        initialMoney = input('How much money do you have? ')
+        return(int(initialMoney),[])
+
+records = []
+initialMoney,records = initialize()
+
+while True: 
+    command = input('What do you want to do (add / view / delete / exit)? ')
+    if command == 'add':
+        records = displayAdd(records)
+        continue
+    if command == 'view':
+        displayView(initialMoney,records)
+        continue
+    if command == 'delete':
+        records = displayDelete(records)
+        continue
+    if command == 'exit':
+        save(initialMoney,records)
+        break
+    sys.stderr.write('Invalid command. Try again.\n')
