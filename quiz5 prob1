@@ -1,0 +1,14 @@
+def pascal(row,col):
+    if col == 0 or col == row:
+        return str(1)
+    else:
+        return str(int(pascal(row-1,col-1))+int(pascal(row-1,col)))
+
+def pascals_triangle(x):
+    for i in range(x):
+        answer = ''
+        for j in range(i+1):
+            answer += pascal(i,j) + ' '
+        print(answer)
+
+pascals_triangle(7)
