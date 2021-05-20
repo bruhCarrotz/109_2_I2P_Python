@@ -1,0 +1,14 @@
+class Polynomial(object):
+    def __init__(self, *coefficients):
+        self.coeff = list(coefficients)
+    def evaluate(self, x):
+        s = 0
+        for i in range(len(self.coeff)):
+            s += self.coeff[i]*x**i
+        return s
+    __call__= evaluate
+
+#output
+#f = Polynomial(3, 5, 4, 7, 1)
+#f.evaluate(3)
+#324
