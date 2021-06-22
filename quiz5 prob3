@@ -1,13 +1,11 @@
-class Polynomial(object):
+class Polynomial:
     def __init__(self, *coefficients):
-        self.coeff = list(coefficients)
-    def evaluate(self, x):
-        s = 0
-        for i in range(len(self.coeff)):
-            s += self.coeff[i]*x**i
-        return s
-    __call__= evaluate
-
+        self.coefficients = list(coefficients)
+    def __call__(self, x):    
+        res = 0
+        for index, coeff in enumerate(self.coefficients):
+            res += coeff * x** index
+        return res 
 #output
 #f = Polynomial(3, 5, 4, 7, 1)
 #f.evaluate(3)
